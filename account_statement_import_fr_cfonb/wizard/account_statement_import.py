@@ -5,7 +5,7 @@
 import logging
 from datetime import datetime
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -172,7 +172,9 @@ class AccountStatementImport(models.TransientModel):
 
             if rec_type in ("04", "05", "07") and account_key not in result:
                 raise UserError(
-                    _("The CFONB file is inconsistent. Error on line %d.") % i
+                    self.env._(
+                        "The CFONB file is inconsistent. Error on line %d.", i
+                    )
                 )
         res = []
         for rdict in result.values():
@@ -221,9 +223,9 @@ class AccountStatementImport(models.TransientModel):
 
         # make sure the length is a multiple of 120 otherwise it isn't valid
         if max_len % CFONB_WIDTH:
-            raise UserError(_("The file is not divisible in 120 char lines"))
+            raise UserError(self.env._("The file is not divisible in 120 char lines"))
         if max_len == 0:
-            raise UserError(_("The file is empty."))
+            raise UserError(self.env._("The file is empty."))
         for index in range(0, max_len, CFONB_WIDTH):
             # append a 120 char slice of the file to the list of lines
             lines.append(data_file_without_linebreaks[index : index + CFONB_WIDTH])
