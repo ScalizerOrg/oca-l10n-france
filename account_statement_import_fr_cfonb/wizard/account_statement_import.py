@@ -70,10 +70,16 @@ class AccountStatementImport(models.TransientModel):
 
     @api.model
     def _check_cfonb(self, data_file):
+        # Strip UTF-8 BOM if present before decoding
+        if data_file.startswith(b"\xef\xbb\xbf"):
+            data_file = data_file[3:]
         return data_file.decode("latin1").strip().startswith("01")
 
     def _parse_file(self, data_file):
         """Import a file in French CFONB format"""
+        # Strip UTF-8 BOM if present before any processing
+        if data_file.startswith(b"\xef\xbb\xbf"):
+            data_file = data_file[3:]
         cfonb = self._check_cfonb(data_file)
         if not cfonb:
             return super()._parse_file(data_file)
