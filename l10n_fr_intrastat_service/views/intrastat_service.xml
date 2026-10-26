@@ -79,7 +79,7 @@
             </form>
         </field>
     </record>
-    <!-- Tree view for DES -->
+    <!-- List view for DES -->
     <record id="l10n_fr_intrastat_service_declaration_tree" model="ir.ui.view">
         <field name="name">fr.intrastat.service.declaration.list</field>
         <field name="model">l10n.fr.intrastat.service.declaration</field>
@@ -167,7 +167,7 @@
             </form>
         </field>
     </record>
-    <!-- Tree view for service lines -->
+    <!-- List view for service lines -->
     <record id="l10n_fr_intrastat_service_declaration_line_tree" model="ir.ui.view">
         <field name="name">fr.intrastat.service.declaration.line.tree</field>
         <field name="model">l10n.fr.intrastat.service.declaration.line</field>
