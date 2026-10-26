@@ -59,9 +59,9 @@ class AccountStatementImport(models.TransientModel):
             "R": "9",
             "}": "0",
         }
-        assert (
-            amount_str[-1] in debit_trans or amount_str[-1] in credit_trans
-        ), "Invalid amount in CFONB file"
+        assert amount_str[-1] in debit_trans or amount_str[-1] in credit_trans, (
+            "Invalid amount in CFONB file"
+        )
         if amount_str[-1] in debit_trans:
             amount_num = float("-" + amount_str[:-1] + debit_trans[amount_str[-1]])
         elif amount_str[-1] in credit_trans:
@@ -99,7 +99,7 @@ class AccountStatementImport(models.TransientModel):
         transactions = []
         for line in lines:
             i += 1
-            _logger.debug("Line %d: %s" % (i, line))
+            _logger.debug("Line %d: %s", i, line)
             assert len(line) == CFONB_WIDTH
             rec_type = line[0:2]
             bank_code = line[2:7]
@@ -178,9 +178,7 @@ class AccountStatementImport(models.TransientModel):
 
             if rec_type in ("04", "05", "07") and account_key not in result:
                 raise UserError(
-                    self.env._(
-                        "The CFONB file is inconsistent. Error on line %d.", i
-                    )
+                    self.env._("The CFONB file is inconsistent. Error on line %d.", i)
                 )
         res = []
         for rdict in result.values():
